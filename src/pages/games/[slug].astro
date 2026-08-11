@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games');
+  return games.map(game => ({
+    params: { slug: game.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry('games', slug);
+---
+
+<Layout title={entry.data.title} description={entry.data.description}>
+  <section class="py-20">
+    <div class="mx-auto px-4 max-w-4xl">
+      <h1 class="text-3xl font-bold mb-4 text-light-800 dark:text-dark-900">{entry.data.title}</h1>
+      <time class="text-sm text-light-500 dark:text-dark-400 mb-6 block">{entry.data.pubDate.toLocaleDateString()}</time>
+
+      <div class="prose dark:prose-invert max-w-none">
+        <slot />
+      </div>
+
+      <div class="mt-8">
+        <a
+          href={entry.data.itchUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-block bg-primary text-white px-6 py-3 font-semibold rounded-sm hover:bg-primaryHover transition-colors shadow-md"
+        >
+          Play on Itch.io
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

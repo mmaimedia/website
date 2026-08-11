@@ -1,0 +1,109 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BlogCard from '../components/BlogCard.astro';
+import VideoCard from '../components/VideoCard.astro';
+import PodcastCard from '../components/PodcastCard.astro';
+import GameCard from '../components/GameCard.astro';
+import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+
+const blogPosts = (await getCollection('blog', post => !post.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const videos = (await getCollection('videos', video => !video.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const podcasts = (await getCollection('podcasts', podcast => !podcast.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const games = (await getCollection('games', game => !game.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="MMAI Media">
+  <!-- Hero Section -->
+  <section class="py-20 text-center">
+    <div class="mx-auto px-4 max-w-4xl">
+      <img src={`${base}/images/logo.svg`} alt="MMAI Media Logo" class="h-24 w-auto mx-auto mb-6" />
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-primary">MMAI Media</h1>
+      <p class="text-xl text-light-500 dark:text-dark-400 max-w-2xl mx-auto">
+        Multimedia content exploring game theory, AI, and gaming.
+      </p>
+    </div>
+  </section>
+
+  <!-- Latest Blog Posts -->
+  <section class="py-12">
+    <div class="mx-auto px-4 max-w-4xl">
+      <h2 class="text-2xl font-bold mb-6 text-light-800 dark:text-dark-900">Latest Blog Posts</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+        {blogPosts.slice(0, 3).map(post => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            href={`/blog/${post.slug}`}
+            pubDate={post.data.pubDate.toLocaleDateString()}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Videos -->
+  <section class="py-12">
+    <div class="mx-auto px-4 max-w-4xl">
+      <h2 class="text-2xl font-bold mb-6 text-light-800 dark:text-dark-900">Latest Videos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+        {videos.slice(0, 3).map(video => (
+          <VideoCard
+            title={video.data.title}
+            description={video.data.description}
+            href={`/videos/${video.slug}`}
+            youtubeId={video.data.youtubeId}
+            duration={video.data.duration}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Podcasts -->
+  <section class="py-12">
+    <div class="mx-auto px-4 max-w-4xl">
+      <h2 class="text-2xl font-bold mb-6 text-light-800 dark:text-dark-900">Latest Podcasts</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
+        {podcasts.slice(0, 2).map(podcast => (
+          <PodcastCard
+            title={podcast.data.title}
+            description={podcast.data.description}
+            href={`/podcasts/${podcast.slug}`}
+            duration={podcast.data.duration}
+            episode={podcast.data.episode}
+            guests={podcast.data.guests}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Games -->
+  <section class="py-12">
+    <div class="mx-auto px-4 max-w-4xl">
+      <h2 class="text-2xl font-bold mb-6 text-light-800 dark:text-dark-900">Indie Games</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
+        {games.slice(0, 3).map(game => (
+          <GameCard
+            title={game.data.title}
+            description={game.data.description}
+            href={`/games/${game.slug}`}
+            price={game.data.price}
+            tags={game.data.tags}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

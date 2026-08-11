@@ -1,0 +1,43 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'MMAI Media',
+  description = 'Multimedia website for game theory, AI, and gaming content',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content="Astro" />
+    <link rel="icon" type="image/x-icon" href={`${base}/favicon.ico`} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <title>{title} | MMAI Media</title>
+  </head>
+  <body class="font-sans transition-colors">
+    <div class="min-h-screen bg-light-50 dark:bg-dark-50 overflow-x-hidden">
+      <div class="relative z-10 sm:border-x sm:border-primary/20">
+        <Header />
+        <main class="min-h-screen">
+          <slot />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  </body>
+</html>

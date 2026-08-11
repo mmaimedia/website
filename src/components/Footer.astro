@@ -1,0 +1,47 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+
+const socialLinks = [
+  { href: 'https://youtube.com', label: 'YouTube', icon: '🎥' },
+  { href: 'https://spotify.com', label: 'Spotify', icon: '🎧' },
+  { href: 'https://patreon.com', label: 'Patreon', icon: '💎' },
+  { href: 'https://itch.io', label: 'Itch.io', icon: '🎮' },
+  { href: 'https://substack.com', label: 'Substack', icon: '📝' },
+  { href: 'https://ko-fi.com', label: 'Ko-fi', icon: '☕' },
+  { href: 'https://x.com', label: 'X', icon: '✕' },
+  { href: 'https://instagram.com', label: 'Instagram', icon: '📷' },
+  { href: 'https://bsky.app', label: 'Bluesky', icon: '🌤️' },
+  { href: 'https://twitch.tv', label: 'Twitch', icon: '🎮' },
+  { href: 'https://medium.com', label: 'Medium', icon: '✍️' },
+];
+---
+
+<footer class="border-t border-light-200 dark:border-dark-300 bg-light-100 dark:bg-dark-100 py-12 text-light-600 dark:text-dark-400">
+  <div class="container mx-auto px-4">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+      <div class="flex items-center gap-3">
+        <img src={`${base}/images/logo.svg`} alt="MMAI Media Logo" class="h-8 w-auto" />
+        <span class="text-lg font-bold text-primary">MMAI Media</span>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center md:justify-end gap-4 max-w-full">
+        {socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex-shrink-0 inline-flex items-center justify-center p-2 text-light-400 dark:text-dark-500 hover:text-primary transition-colors relative group"
+            aria-label={link.label}
+          >
+            <span class="text-2xl leading-none">{link.icon}</span>
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-teal transition-all group-hover:w-full"></span>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-8 text-center text-sm text-light-500 dark:text-dark-500">
+      © {new Date().getFullYear()} MMAI Media. All rights reserved.
+    </div>
+  </div>
+</footer>

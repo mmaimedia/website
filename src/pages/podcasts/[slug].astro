@@ -1,0 +1,36 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const podcasts = await getCollection('podcasts');
+  return podcasts.map(podcast => ({
+    params: { slug: podcast.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const entry = await getEntry('podcasts', slug);
+---
+
+<Layout title={entry.data.title} description={entry.data.description}>
+  <section class="py-20">
+    <div class="mx-auto px-4 max-w-4xl">
+      <h1 class="text-3xl font-bold mb-4 text-light-800 dark:text-dark-900">{entry.data.title}</h1>
+      <time class="text-sm text-light-500 dark:text-dark-400 mb-6 block">{entry.data.pubDate.toLocaleDateString()}</time>
+
+      <div class="mb-6">
+        <iframe
+          src={`https://open.spotify.com/embed/show/${entry.data.spotifyId}`}
+          title={entry.data.title}
+          class="w-full h-64"
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen"
+        ></iframe>
+      </div>
+
+      <div class="prose dark:prose-invert max-w-none">
+        <slot />
+      </div>
+    </div>
+  </section>
+</Layout>

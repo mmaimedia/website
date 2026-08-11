@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PodcastCard from '../components/PodcastCard.astro';
+import { getCollection } from 'astro:content';
+
+const podcasts = (await getCollection('podcasts', podcast => !podcast.data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="Podcasts | MMAI Media" description="AI and game design podcasts.">
+  <section class="py-20">
+    <div class="mx-auto px-4 max-w-4xl">
+      <h1 class="text-3xl font-bold mb-8 text-light-800 dark:text-dark-900">Podcasts</h1>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 justify-center">
+        {podcasts.map(podcast => (
+          <PodcastCard
+            title={podcast.data.title}
+            description={podcast.data.description}
+            href={`/podcasts/${podcast.slug}`}
+            duration={podcast.data.duration}
+            episode={podcast.data.episode}
+            guests={podcast.data.guests}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
