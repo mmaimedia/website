@@ -1,44 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+import ComingSoon from '../components/ComingSoon.astro';
 ---
 
 <Layout title="About | MMAI Media" description="Learn about MMAI Media and our mission to explore game theory, AI, and gaming.">
-  <section class="py-20">
-    <div class="mx-auto px-4 max-w-3xl">
-      <div class="flex items-center gap-4 mb-8">
-        <img src={`${base}/images/logo.svg`} alt="MMAI Media Logo" class="h-16 w-auto" />
-        <h1 class="text-3xl font-bold text-light-800 dark:text-dark-900">MMAI Media</h1>
-      </div>
-
-      <p class="text-lg text-light-500 dark:text-dark-400 mb-6">
-        MMAI Media is a multimedia platform exploring the intersection of game theory,
-        artificial intelligence, and gaming. We create educational content that bridges
-        academic concepts with practical applications in game design and development.
-      </p>
-
-      <hr class="border-t border-light-200 dark:border-dark-300 my-8" />
-
-      <h2 class="text-2xl font-bold mt-10 mb-4 text-light-800 dark:text-dark-900">Content</h2>
-      <ul class="text-light-500 dark:text-dark-400 mb-6 space-y-2">
-        <li><strong>Instructional Videos</strong> — Game theory, AI, and game design concepts on YouTube</li>
-        <li><strong>Blog Posts</strong> — Deep dives into game theory, decision-making, and AI</li>
-        <li><strong>Podcasts</strong> — Conversations with experts on AI and game development</li>
-        <li><strong>Indie Games</strong> — Educational games exploring decision theory</li>
-        <li><strong>Premium Content</strong> — Extended courses and tutorials on Patreon</li>
-      </ul>
-
-      <hr class="border-t border-light-200 dark:border-dark-300 my-8" />
-
-      <h2 class="text-2xl font-bold mt-10 mb-4 text-light-800 dark:text-dark-900">External Platforms</h2>
-      <ul class="text-light-500 dark:text-dark-400 space-y-2">
-        <li><a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="text-primary">YouTube</a> — Video content</li>
-        <li><a href="https://spotify.com" target="_blank" rel="noopener noreferrer" class="text-primary">Spotify</a> — Podcasts</li>
-        <li><a href="https://patreon.com" target="_blank" rel="noopener noreferrer" class="text-primary">Patreon</a> — Premium content</li>
-        <li><a href="https://itch.io" target="_blank" rel="noopener noreferrer" class="text-primary">Itch.io</a> — Indie games</li>
-        <li><a href="https://substack.com" target="_blank" rel="noopener noreferrer" class="text-primary">Substack</a> — Newsletter</li>
-      </ul>
-    </div>
-  </section>
+  <ComingSoon />
 </Layout>

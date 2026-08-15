@@ -1,28 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import GameCard from '../components/GameCard.astro';
-import { getCollection } from 'astro:content';
-
-const games = (await getCollection('games', game => !game.data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+import ComingSoon from '../components/ComingSoon.astro';
 ---
 
 <Layout title="Games | MMAI Media" description="Indie games exploring game theory concepts.">
-  <section class="py-20">
-    <div class="mx-auto px-4 max-w-4xl">
-      <h1 class="text-3xl font-bold mb-8 text-light-800 dark:text-dark-900">Indie Games</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-        {games.map(game => (
-          <GameCard
-            title={game.data.title}
-            description={game.data.description}
-            href={`/games/${game.slug}`}
-            price={game.data.price}
-            tags={game.data.tags}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
+  <ComingSoon />
 </Layout>

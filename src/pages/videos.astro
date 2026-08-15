@@ -1,28 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import VideoCard from '../components/VideoCard.astro';
-import { getCollection } from 'astro:content';
-
-const videos = (await getCollection('videos', video => !video.data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+import ComingSoon from '../components/ComingSoon.astro';
 ---
 
 <Layout title="Videos | MMAI Media" description="Game theory and AI videos.">
-  <section class="py-20">
-    <div class="mx-auto px-4 max-w-4xl">
-      <h1 class="text-3xl font-bold mb-8 text-light-800 dark:text-dark-900">Videos</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-        {videos.map(video => (
-          <VideoCard
-            title={video.data.title}
-            description={video.data.description}
-            href={`/videos/${video.slug}`}
-            youtubeId={video.data.youtubeId}
-            duration={video.data.duration}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
+  <ComingSoon />
 </Layout>

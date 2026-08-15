@@ -1,28 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import BlogCard from '../components/BlogCard.astro';
-import { getCollection } from 'astro:content';
-
-const posts = (await getCollection('blog', post => !post.data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
-);
+import ComingSoon from '../components/ComingSoon.astro';
 ---
 
 <Layout title="Blog | MMAI Media" description="Articles on game theory, AI, and game design.">
-  <section class="py-20">
-    <div class="mx-auto px-4 max-w-4xl">
-      <h1 class="text-3xl font-bold mb-8 text-light-800 dark:text-dark-900">Blog</h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center">
-        {posts.map(post => (
-          <BlogCard
-            title={post.data.title}
-            description={post.data.description}
-            href={`/blog/${post.slug}`}
-            pubDate={post.data.pubDate.toLocaleDateString()}
-            tags={post.data.tags}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
+  <ComingSoon />
 </Layout>
