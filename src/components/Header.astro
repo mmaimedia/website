@@ -1,0 +1,15 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+---
+
+<header class="relative border-b border-light-200 dark:border-dark-300 bg-light-100 dark:bg-dark-100">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3 whitespace-nowrap shrink-0">
+      <img src={`${base}/images/logo.svg`} alt="MMAI Media Logo" class="h-10 w-auto" />
+      <span class="text-xl font-bold text-primary">MMAI Media</span>
+    </a>
+    <ThemeToggle />
+  </div>
+</header>

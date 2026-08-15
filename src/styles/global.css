@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme-aware body styles */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    @apply font-sans text-light-700 dark:text-dark-400 antialiased;
+    background: #fdf6e3;
+  }
+
+  .dark body {
+    background: #0f1117;
+  }
+
+  /* Container */
+  .container {
+    position: relative;
+  }
+
+  /* Headings */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-light-800 dark:text-dark-900 font-sans;
+  }
+
+  /* Custom scrollbar — orange accent */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f3f4f6;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: #374151;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #d45500;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #e07a00;
+  }
+}
+
+@layer base {
+  /* Orange text accent */
+  .text-orange-accent {
+    color: #d45500;
+  }
+
+  /* Teal accent */
+  .text-teal-accent {
+    color: #0d9488;
+  }
+
+  /* Border with orange accent */
+  .border-orange-accent {
+    border-color: #d45500;
+  }
+
+  /* Prose — modern font */
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    @apply font-sans text-light-800 dark:text-dark-900;
+  }
+  .prose a {
+    @apply text-primary hover:text-primaryHover;
+  }
+  .prose code {
+    @apply text-sm bg-light-200 dark:bg-dark-300 text-light-800 dark:text-dark-900;
+    border: 1px solid #d45500;
+    border-radius: 0.25rem;
+  }
+}

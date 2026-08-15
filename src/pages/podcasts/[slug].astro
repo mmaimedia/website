@@ -1,0 +1,16 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ComingSoon from '../../components/ComingSoon.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const podcasts = await getCollection('podcasts');
+  return podcasts.map((podcast) => ({
+    params: { slug: podcast.slug },
+  }));
+}
+---
+
+<Layout title="Podcasts | MMAI Media" description="AI and game design podcasts.">
+  <ComingSoon />
+</Layout>

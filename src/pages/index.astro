@@ -1,0 +1,25 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BrevoForm from '../components/BrevoForm.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
+---
+
+<Layout title="MMAI Media">
+  <!-- Coming Soon Hero -->
+  <section class="py-16 md:py-24 text-center">
+    <div class="mx-auto px-4 max-w-4xl">
+      <img src={`${base}/images/logo.svg`} alt="MMAI Media Logo" class="h-24 w-auto mx-auto mb-6" />
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-primary">MMAI Media</h1>
+      <p class="text-2xl font-semibold text-light-800 dark:text-dark-900 max-w-2xl mx-auto mb-2">
+        Applied Math. Next-Gen AI. Retro Roots.
+      </p>
+      <p class="text-lg text-light-500 dark:text-dark-400 max-w-2xl mx-auto mb-10">
+        Teaching the mechanics, broadcasting the stories, and building games through unorthodox techniques.
+      </p>
+      <div class="max-w-xl mx-auto">
+        <BrevoForm />
+      </div>
+    </div>
+  </section>
+</Layout>

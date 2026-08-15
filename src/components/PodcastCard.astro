@@ -1,0 +1,35 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  href: string;
+  duration?: string;
+  episode?: number;
+  guests?: string[];
+}
+
+const { title, description, href, duration, episode, guests } = Astro.props;
+---
+
+<article class="border border-light-200 dark:border-dark-300 rounded-sm p-6 bg-[#657b83] dark:bg-dark-100 dark:hover:bg-dark-200 hover:border-primary/30 hover:shadow-orange transition-all duration-300">
+  <div class="flex items-start gap-4">
+    <div class="text-3xl">🎧</div>
+    <div class="flex-1">
+      <h3 class="text-lg font-bold mb-2">
+        <a href={href} class="text-light-800 dark:text-dark-900 hover:text-primary transition-colors">{title}</a>
+      </h3>
+      {episode && (
+        <span class="text-xs text-milk dark:text-dark-400">Episode {episode}</span>
+      )}
+      {duration && (
+        <span class="text-xs text-milk dark:text-dark-400 ml-2">· {duration}</span>
+      )}
+      {description && (
+        <p class="text-milk dark:text-dark-400 text-sm mt-2">{description}</p>
+      )}
+      {guests && guests.length > 0 && (
+        <p class="text-xs text-milk dark:text-dark-400 mt-2">with {guests.join(', ')}</p>
+      )}
+    </div>
+  </div>
+</article>

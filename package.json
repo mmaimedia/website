@@ -1,0 +1,25 @@
+{
+  "name": "mmai-website",
+  "version": "0.1.0",
+  "description": "Multimedia website for game theory, AI, and gaming content",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "keywords": ["astro", "gaming", "game-theory", "ai", "blog"],
+  "author": "MMAI",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "devDependencies": {
+    "@astrojs/mdx": "^3.1.9",
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^4.0.0",
+    "prettier": "^3.0.0"
+  },
+  "dependencies": {
+    "zod": "^3.22.4"
+  }
+}
