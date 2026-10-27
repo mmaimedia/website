@@ -2,6 +2,8 @@
 // Brevo newsletter signup form (in-page embed) restyled to match the site theme.
 // Form structure, hidden fields, and scripts come verbatim from the Brevo embed;
 // only static text blocks are trimmed and visuals are overridden below.
+// The consent label links "data privacy statement" to our own /privacy page so consent is informed.
+const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
 ---
 
 <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css" />
@@ -96,7 +98,7 @@
                       />
                       <span class="checkbox checkbox_tick_positive"></span>
                       <span>
-                        <p>I agree to receive your newsletters and accept the data privacy statement.</p>
+                        <p>I agree to receive your newsletters and accept the <a href={`${base}/privacy/`} target="_blank" rel="noopener">data privacy statement</a>.</p>
                         <span data-required="*" style="display: inline" class="entry__label entry__label_optin"></span>
                       </span>
                     </label>
@@ -315,8 +317,13 @@
     color: #9ca3af !important;
   }
 
-  .brevo-form .sib-form__declaration a {
+  .brevo-form .sib-form__declaration a,
+  .brevo-form .sib-optin a {
     color: #d45500 !important;
+  }
+
+  .brevo-form .sib-optin a {
+    text-decoration: underline;
   }
 
   .brevo-form .sib-form-message-panel {

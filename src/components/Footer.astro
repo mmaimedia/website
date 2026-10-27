@@ -40,8 +40,12 @@ const socialLinks = [
       </div>
     </div>
 
-    <div class="mt-8 text-center text-sm text-light-500 dark:text-dark-500">
-      © {new Date().getFullYear()} MMAI Media LLC. All rights reserved.
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm text-light-500 dark:text-dark-500">
+      <span>© {new Date().getFullYear()} MMAI Media LLC. All rights reserved.</span>
+      <nav aria-label="Legal" class="flex items-center gap-4 sm:border-l sm:border-light-400 dark:sm:border-dark-300 sm:pl-4">
+        <a href={`${base}/privacy/`} class="text-light-700 dark:text-dark-600 hover:text-primary dark:hover:text-primary hover:underline underline-offset-2 transition-colors">Privacy Policy</a>
+        <a href={`${base}/terms/`} class="text-light-700 dark:text-dark-600 hover:text-primary dark:hover:text-primary hover:underline underline-offset-2 transition-colors">Terms of Service</a>
+      </nav>
     </div>
   </div>
 </footer>

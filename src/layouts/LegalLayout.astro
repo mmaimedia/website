@@ -1,0 +1,129 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  updated: string;
+}
+
+const { title, description, updated } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <section class="py-12 md:py-16">
+    <div class="mx-auto px-4 max-w-3xl">
+      <h1 class="text-3xl md:text-4xl font-bold mb-2 text-primary">{title}</h1>
+      <p class="text-sm text-light-700 dark:text-dark-600 mb-10">Last updated: {updated}</p>
+      <div class="legal-prose">
+        <slot />
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style is:global>
+  /* Long-form legal copy. Sections are <section><h2>…</h2>…</section>; h2s are numbered automatically. */
+  .legal-prose {
+    counter-reset: legal-section;
+    @apply text-light-800 dark:text-dark-700;
+  }
+
+  .legal-prose h2 {
+    counter-increment: legal-section;
+    @apply text-xl md:text-2xl font-bold mt-12 mb-4 pb-2 border-b border-light-400 dark:border-dark-300;
+  }
+
+  .legal-prose h2::before {
+    content: counter(legal-section) '. ';
+    @apply text-primary;
+  }
+
+  .legal-prose h3 {
+    @apply text-lg font-semibold mt-8 mb-2;
+  }
+
+  .legal-prose p {
+    @apply mb-4 leading-relaxed;
+  }
+
+  .legal-prose ul,
+  .legal-prose ol {
+    @apply mb-4 pl-6 space-y-2 leading-relaxed;
+  }
+
+  .legal-prose ul {
+    @apply list-disc;
+  }
+
+  .legal-prose ol {
+    @apply list-decimal;
+  }
+
+  .legal-prose li::marker {
+    color: #d45500;
+  }
+
+  .legal-prose li > ul,
+  .legal-prose li > ol {
+    @apply mt-2 mb-0;
+  }
+
+  .legal-prose strong {
+    @apply font-semibold text-light-900 dark:text-dark-900;
+  }
+
+  .legal-prose a {
+    @apply text-primary hover:text-primaryHover underline underline-offset-2 break-words;
+  }
+
+  /* Conspicuous (all-caps) disclaimers */
+  .legal-prose .legal-caps {
+    @apply text-sm font-medium;
+  }
+
+  /* "Short version" box at the top of each page */
+  .legal-prose .legal-callout {
+    @apply mb-8 p-5 rounded-sm bg-light-100 dark:bg-dark-100 border border-light-400 dark:border-dark-300;
+    border-left: 4px solid #d45500;
+  }
+
+  .legal-prose .legal-callout > :last-child {
+    @apply mb-0;
+  }
+
+  .legal-prose .legal-callout .legal-callout-title {
+    @apply font-bold mb-2 text-light-900 dark:text-dark-900;
+  }
+
+  /* Table of contents */
+  .legal-prose .legal-toc {
+    @apply mb-8;
+  }
+
+  .legal-prose .legal-toc ol {
+    @apply mb-0 space-y-1;
+  }
+
+  .legal-prose .legal-toc .legal-toc-title {
+    @apply font-bold mb-2 text-light-900 dark:text-dark-900;
+  }
+
+  /* Tables (wrap in .legal-table-wrap so they scroll on narrow screens) */
+  .legal-prose .legal-table-wrap {
+    @apply mb-6 overflow-x-auto;
+  }
+
+  .legal-prose table {
+    @apply w-full min-w-[36rem] border-collapse text-sm;
+  }
+
+  .legal-prose th,
+  .legal-prose td {
+    @apply p-3 text-left align-top border border-light-400 dark:border-dark-300;
+  }
+
+  .legal-prose th {
+    @apply font-semibold bg-light-100 dark:bg-dark-100 text-light-900 dark:text-dark-900;
+  }
+</style>
