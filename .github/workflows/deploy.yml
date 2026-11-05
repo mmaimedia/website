@@ -3,10 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-  # Rebuild regularly so the Videos page and Latest Video pick up new uploads
-  # from the YouTube channel without a code change.
+  # Rebuild daily so the Videos page and Latest Video pick up new uploads
+  # from the YouTube channel without a code change. Cron runs in UTC:
+  # 20:00 UTC is 12pm PST (1pm during daylight saving time).
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '0 20 * * *'
   workflow_dispatch:
 
 permissions:
