@@ -3,6 +3,10 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+  # Rebuild regularly so the Videos page and Latest Video pick up new uploads
+  # from the YouTube channel without a code change.
+  schedule:
+    - cron: '*/30 * * * *'
   workflow_dispatch:
 
 permissions:
