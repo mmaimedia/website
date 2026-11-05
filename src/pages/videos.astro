@@ -1,8 +1,56 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ComingSoon from '../components/ComingSoon.astro';
+import VideoCard from '../components/VideoCard.astro';
+import { getChannelVideos, CHANNEL_URL } from '../lib/youtube';
+
+const videos = await getChannelVideos();
+const longForm = videos.filter((v) => !v.isShort);
+const shorts = videos.filter((v) => v.isShort);
+const firstLine = (text: string) => text.split('\n').find((line) => line.trim()) ?? '';
 ---
 
-<Layout title="Videos | MMAI Media" description="Game theory and AI videos.">
-  <ComingSoon />
+<Layout title="Videos" description="Every video and Short from the MMAI Media YouTube channel.">
+  <section class="py-16 md:py-20 text-center border-b border-light-200 dark:border-dark-300">
+    <div class="mx-auto px-4 max-w-3xl">
+      <p class="text-sm font-semibold uppercase tracking-widest text-primary mb-3">YouTube</p>
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 text-light-800 dark:text-dark-900">Videos</h1>
+      <p class="text-lg text-light-500 dark:text-dark-400 mb-8">
+        Everything we've published on the MMAI Media channel, newest first.
+      </p>
+      <a
+        href={`${CHANNEL_URL}?sub_confirmation=1`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-block bg-primary text-white px-8 py-4 text-lg font-semibold rounded-sm hover:bg-primaryHover transition-colors shadow-md"
+      >
+        Subscribe on YouTube
+      </a>
+    </div>
+  </section>
+
+  {longForm.length > 0 && (
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold mb-8 text-light-800 dark:text-dark-900">Videos</h2>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {longForm.map((v) => (
+            <VideoCard title={v.title} description={firstLine(v.description)} href={v.url} youtubeId={v.id} date={v.published} />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  {shorts.length > 0 && (
+    <section class="py-16 border-t border-light-200 dark:border-dark-300">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl md:text-3xl font-bold mb-8 text-light-800 dark:text-dark-900">Shorts</h2>
+        <div class="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5">
+          {shorts.map((v) => (
+            <VideoCard title={v.title} href={v.url} youtubeId={v.id} date={v.published} vertical />
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 </Layout>

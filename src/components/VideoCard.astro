@@ -5,28 +5,37 @@ interface Props {
   href: string;
   youtubeId: string;
   duration?: string;
+  date?: string;
+  vertical?: boolean;
 }
 
-const { title, description, href, youtubeId, duration } = Astro.props;
+const { title, description, href, youtubeId, duration, date, vertical = false } = Astro.props;
+const external = /^https?:\/\//.test(href);
+const linkProps = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+const dateLabel = date
+  ? new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' })
+  : undefined;
 ---
 
-<article class="border border-light-200 dark:border-dark-300 rounded-sm overflow-hidden bg-[#657b83] dark:bg-dark-100 dark:hover:bg-dark-200 hover:border-primary/30 hover:shadow-orange transition-all duration-300">
-  <div class="aspect-video bg-light-200 dark:bg-dark-200 relative">
+<article class="group border border-light-200 dark:border-dark-300 rounded-sm overflow-hidden bg-[#657b83] dark:bg-dark-100 dark:hover:bg-dark-200 hover:border-primary/30 hover:shadow-orange transition-all duration-300 flex flex-col">
+  <a href={href} {...linkProps} class={`block ${vertical ? 'aspect-[9/16]' : 'aspect-video'} bg-light-200 dark:bg-dark-200 relative overflow-hidden`} aria-label={`Watch ${title}`}>
     <img
-      src={`https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`}
-      alt={title}
-      class="w-full h-full object-cover"
+      src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
+      alt=""
+      loading="lazy"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
     />
     {duration && (
       <span class="absolute bottom-2 right-2 bg-[#657b83]/30 dark:bg-dark-100/80 text-milk dark:text-dark-900 text-xs px-2 py-1 rounded-sm border border-light-200 dark:border-dark-300">{duration}</span>
     )}
-  </div>
-  <div class="p-6">
-    <h3 class="text-lg font-bold mb-2">
-      <a href={href} class="text-light-800 dark:text-dark-900 hover:text-primary transition-colors">{title}</a>
+  </a>
+  <div class={vertical ? 'p-4' : 'p-6'}>
+    <h3 class={`${vertical ? 'text-base' : 'text-lg'} font-bold mb-2`}>
+      <a href={href} {...linkProps} class="text-light-800 dark:text-dark-900 hover:text-primary transition-colors">{title}</a>
     </h3>
+    {dateLabel && <p class="text-xs text-milk/80 dark:text-dark-400 mb-2">{dateLabel}</p>}
     {description && (
-      <p class="text-milk dark:text-dark-400 text-sm">{description}</p>
+      <p class="text-milk dark:text-dark-400 text-sm line-clamp-3">{description}</p>
     )}
   </div>
 </article>

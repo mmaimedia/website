@@ -1,6 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BrevoForm from '../components/BrevoForm.astro';
+import { getChannelVideos } from '../lib/youtube';
+
+const videos = await getChannelVideos();
+const latest = videos.find((v) => !v.isShort) ?? videos[0];
 
 const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
 ---
@@ -24,35 +28,42 @@ const base = import.meta.env.BASE_URL.replace(/\/+$/, '');
     </div>
   </section>
 
-  <!-- Launch Video -->
-  <section class="py-16 md:py-20 border-t border-light-200 dark:border-dark-300 bg-light-100 dark:bg-dark-100">
-    <div class="mx-auto px-4 max-w-4xl text-center">
-      <p class="text-sm font-semibold uppercase tracking-widest text-primary mb-3">Official Launch</p>
-      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-light-800 dark:text-dark-900">Watch Our Launch Video</h2>
-      <p class="text-lg text-light-500 dark:text-dark-400 max-w-2xl mx-auto mb-10">
-        Our first video is live on YouTube. Take a look and see what we're building.
-      </p>
+  <!-- Latest Video (pulled from YouTube on every build) -->
+  {latest && (
+    <section class="py-16 md:py-20 border-t border-light-200 dark:border-dark-300 bg-light-100 dark:bg-dark-100">
+      <div class="mx-auto px-4 max-w-4xl text-center">
+        <p class="text-sm font-semibold uppercase tracking-widest text-primary mb-3">Latest Video</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-10 text-light-800 dark:text-dark-900">{latest.title}</h2>
 
-      <div class="relative w-full aspect-video rounded-lg overflow-hidden border border-light-200 dark:border-dark-300 shadow-lg bg-black">
-        <iframe
-          class="absolute inset-0 w-full h-full"
-          src="https://www.youtube-nocookie.com/embed/3_wVZCconvA"
-          title="MMAI Media launch video"
-          loading="lazy"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-        ></iframe>
+        <div class={`relative mx-auto rounded-lg overflow-hidden border border-light-200 dark:border-dark-300 shadow-lg bg-black ${latest.isShort ? 'aspect-[9/16] max-w-sm' : 'aspect-video w-full'}`}>
+          <iframe
+            class="absolute inset-0 w-full h-full"
+            src={`https://www.youtube-nocookie.com/embed/${latest.id}`}
+            title={latest.title}
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+
+        <div class="mt-8 flex flex-wrap justify-center gap-4">
+          <a
+            href={latest.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block bg-primary text-white px-8 py-4 text-lg font-semibold rounded-sm hover:bg-primaryHover transition-colors shadow-md"
+          >
+            Watch on YouTube
+          </a>
+          <a
+            href="/videos/"
+            class="inline-block border border-primary text-primary px-8 py-4 text-lg font-semibold rounded-sm hover:bg-primary hover:text-white transition-colors"
+          >
+            See all videos
+          </a>
+        </div>
       </div>
-
-      <a
-        href="https://youtu.be/3_wVZCconvA"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-block mt-8 bg-primary text-white px-8 py-4 text-lg font-semibold rounded-sm hover:bg-primaryHover transition-colors shadow-md"
-      >
-        Watch on YouTube
-      </a>
-    </div>
-  </section>
+    </section>
+  )}
 </Layout>

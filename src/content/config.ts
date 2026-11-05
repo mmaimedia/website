@@ -12,19 +12,6 @@ const blog = defineCollection({
   }),
 });
 
-const videos = defineCollection({
-  schema: z.object({
-    title: z.string(),
-    description: z.string().optional(),
-    pubDate: z.coerce.date(),
-    youtubeId: z.string(),
-    duration: z.string().optional(),
-    series: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    draft: z.boolean().default(false),
-  }),
-});
-
 const podcasts = defineCollection({
   schema: z.object({
     title: z.string(),
@@ -52,4 +39,4 @@ const games = defineCollection({
   }),
 });
 
-export const collections = { blog, videos, podcasts, games };
+export const collections = { blog, podcasts, games };
